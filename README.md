@@ -42,7 +42,7 @@ Open http://localhost:5173 in your browser.
 
 ## 📦 Deployment
 
-Deployed on Vercel — https://wall-calender.vercel.app
+Deployed on Vercel — https://wall-calender-khaki.vercel.app/
 
 ## 📄 License
 
