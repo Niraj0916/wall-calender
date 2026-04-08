@@ -24,7 +24,7 @@ const CSS=`
 .c-enter{animation:sUp .7s cubic-bezier(.16,1,.3,1) forwards}
 .c-hide{opacity:0;transform:translateY(60px) scale(.94)}
 .pop-in{animation:pIn .22s cubic-bezier(.34,1.56,.64,1) forwards}
-@media(max-width:768px){.cmain{grid-template-columns:1fr!important}.chero{min-height:240px!important}}
+@media(max-width:768px){.cmain{grid-template-columns:1fr!important}.chero{min-height:240px!important}.bind-dot:nth-child(n+9){display:none!important}}
 .flip{transform:rotateY(90deg);transition:transform 160ms ease}.unflip{transform:rotateY(0);transition:transform 160ms ease}
 .dc{position:relative;aspect-ratio:1/1;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:12px;cursor:pointer;user-select:none;transition:all .18s cubic-bezier(.16,1,.3,1)}
 .dc:hover{background:rgba(99,102,241,.15)!important;transform:scale(1.07);z-index:2}
@@ -169,14 +169,14 @@ export default function WallCalendar() {
       <div className={vis?"c-enter":"c-hide"} style={{width:"100%",maxWidth:1160,borderRadius:24,overflow:"hidden",backdropFilter:"blur(24px) saturate(180%)",background:pb,border:bdr,boxShadow:D?"0 32px 80px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.06)":"0 32px 80px rgba(99,102,241,.15),0 0 0 1px rgba(99,102,241,.1)",transition:"background .4s"}}>
 
         {/* Binding bar */}
-        <div style={{display:"flex",flexWrap:"wrap",alignItems:"center",justifyContent:"center",padding:"13px 24px 11px",background:D?"rgba(255,255,255,.03)":"rgba(99,102,241,.04)",borderBottom:D?"1px solid rgba(255,255,255,.06)":"1px solid rgba(99,102,241,.1)",gap:16}}>
-          <div style={{flex:1,minWidth:"250px",display:"flex",justifyContent:"space-around",flexWrap:"wrap",gap:4}}>
+        <div style={{display:"flex",alignItems:"center",padding:"13px 24px 11px",background:D?"rgba(255,255,255,.03)":"rgba(99,102,241,.04)",borderBottom:D?"1px solid rgba(255,255,255,.06)":"1px solid rgba(99,102,241,.1)",gap:16}}>
+          <div style={{flex:1,display:"flex",justifyContent:"space-around"}}>
             {Array.from({length:20}).map((_,i)=>(
-              <div key={i} style={{width:16,height:16,borderRadius:"50%",background:D?"linear-gradient(145deg,#f8fafc,#e2e8f0)":"linear-gradient(145deg,#ef4444,#b91c1c)",boxShadow:D?"inset 0 2px 4px rgba(255,255,255,.8),inset 0 -2px 4px rgba(0,0,0,.2),0 2px 4px rgba(0,0,0,.4)":"inset 0 2px 4px rgba(255,255,255,.5),inset 0 -2px 4px rgba(0,0,0,.2),0 2px 4px rgba(0,0,0,.2)"}}/>
+              <div key={i} className="bind-dot" style={{width:16,height:16,borderRadius:"50%",background:D?"linear-gradient(145deg,#f8fafc,#e2e8f0)":"linear-gradient(145deg,#ef4444,#b91c1c)",boxShadow:D?"inset 0 2px 4px rgba(255,255,255,.8),inset 0 -2px 4px rgba(0,0,0,.2),0 2px 4px rgba(0,0,0,.4)":"inset 0 2px 4px rgba(255,255,255,.5),inset 0 -2px 4px rgba(0,0,0,.2),0 2px 4px rgba(0,0,0,.2)"}}/>
             ))}
           </div>
           <button className="tbtn" onClick={()=>setDark(d=>{localStorage.setItem("cal-dark",!d?"1":"0");return !d;})}
-            style={{background:D?"rgba(255,255,255,.08)":"rgba(99,102,241,.1)",color:D?"#e2e8f0":"#000000",border:bdr,whiteSpace:"nowrap"}}>
+            style={{flexShrink:0,background:D?"rgba(255,255,255,.08)":"rgba(99,102,241,.1)",color:D?"#e2e8f0":"#000000",border:bdr,whiteSpace:"nowrap"}}>
             {D?"☀️ Light mode":"🌙 Dark mode"}
           </button>
         </div>
