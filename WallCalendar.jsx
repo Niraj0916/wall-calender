@@ -110,11 +110,22 @@ export default function WallCalendar() {
   const inR=d=>{const dt=cd(d);if(sDate&&eDate)return dt>sDate&&dt<eDate;if(sDate&&!eDate&&hov){const lo=sDate<hov?sDate:hov,hi=sDate<hov?hov:sDate;return dt>lo&&dt<hi;}return false;};
   const isH=d=>(!sDate||eDate)?false:hov&&cd(d).getTime()===hov.getTime();
 
-  const handleCell=d=>{const c=new Date(year,month,d);
-    if(!sDate||(sDate&&eDate)){setSDate(c);setEDate(null);setHov(null);}
-    else if(c.getTime()===sDate.getTime()){setSDate(null);setEDate(null);setHov(null);}
-    else if(c>sDate){setEDate(c);setHov(null);}
-    else{setSDate(c);setEDate(null);setHov(null);}};
+  const handleCell = d => {
+    const c = new Date(year, month, d);
+    if (!sDate) {
+      setSDate(c); setEDate(null); setHov(null);
+    } else if (sDate && !eDate) {
+      if (c.getTime() === sDate.getTime()) {
+        setSDate(null); setHov(null);
+      } else if (c > sDate) {
+        setEDate(c); setHov(null);
+      } else {
+        setSDate(c); setHov(null);
+      }
+    } else if (sDate && eDate) {
+      setSDate(c); setEDate(null); setHov(null);
+    }
+  };
 
   const openModal=(day,e)=>{const k=ek(year,month,day),ex=evs[k];setMIn(ex?.label||"");setMCol(ex?.color||EVC[0]);setModal({key:k,day,rect:e.currentTarget.getBoundingClientRect()});};
   const saveEv=()=>{if(!modal)return;if(mIn.trim())saveEvs({...evs,[modal.key]:{label:mIn.trim(),color:mCol}});else{const{[modal.key]:_,...r}=evs;saveEvs(r);}setModal(null);};
